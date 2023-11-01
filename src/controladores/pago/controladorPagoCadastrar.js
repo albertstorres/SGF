@@ -21,6 +21,10 @@ const controladorPagoCadastrar = async (req, res) => {
             locacoes_id
         });
 
+        if (!pagamentoCadastrado) {
+            return res.status(500).json({ mensagem: "Pagamento não registrado" });
+        }
+
         return res.status(201).json({ mensagem: "Pagamento cadastrado com sucesso" });
     } catch (error) {
         return res.status(500).json(error.message);
