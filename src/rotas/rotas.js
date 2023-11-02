@@ -2,9 +2,9 @@ const express = require("express");
 
 const rotas = express();
 
-const teste = require("../controladores/teste/teste");
-
 const intermediarioUsuarioCadastrar = require("../intermediarios/usuarios/intermediarioUsuarioCadastrar");
+const intermediarioUsuarioLogin = require("../intermediarios/usuarios/intermediarioUsuarioLogin");
+const intermediarioUsuarioVerificarLogin = require("../intermediarios/usuarios/intermediarioUsuarioVerificarLogin");
 
 const intermediarioClienteCadastrar = require("../intermediarios/clientes/intermediarioClienteCadastrar");
 
@@ -19,6 +19,7 @@ const intermediarioNaoPagoCadastrar = require("../intermediarios/naoPago/interme
 const intermediarioPagoCadastrar = require("../intermediarios/pago/intermediarioPagoCadastrar")
 
 const controladorUsuarioCadastrar = require("../controladores/usuarios/controladorUsuarioCadastrar");
+const controladorUsuarioLogin = require("../controladores/usuarios/controladorUsuarioLogin");
 
 const controladorFeiraCadastrar = require("../controladores/feiras/controladorFeiraCadastrar");
 
@@ -33,6 +34,7 @@ const controladorNaoPagoCadastrar = require("../controladores/naoPago/controlado
 const controladorPagoCadastrar = require("../controladores/pago/controladorPagoCadastrar");
 
 const schemaUsuarrioCadastrar = require("../validacoes/usuarios/schemaUsuarioCadastrar");
+const schemaUsuarioLogin = require("../validacoes/usuarios/schemaUsuarioLogin");
 
 const schemaFeiraCadastrar = require("../validacoes/feiras/schemaFeiraCadastrar");
 
@@ -47,6 +49,13 @@ const schemaNaoPagoCadastrar = require("../validacoes/naoPago/schemaNaoPagoCadas
 const schemaPagoCadastrar = require("../validacoes/pago/schemaPagoCadastrar");
 
 
+rotas.post(
+    '/login',
+    intermediarioUsuarioLogin(schemaUsuarioLogin),
+    controladorUsuarioLogin
+);
+
+rotas.use(intermediarioUsuarioVerificarLogin);
 
 rotas.post(
     '/usuarios',
