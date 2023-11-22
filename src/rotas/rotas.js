@@ -5,6 +5,7 @@ const rotas = express();
 const intermediarioUsuarioCadastrar = require("../intermediarios/usuarios/intermediarioUsuarioCadastrar");
 const intermediarioUsuarioLogin = require("../intermediarios/usuarios/intermediarioUsuarioLogin");
 const intermediarioUsuarioVerificarLogin = require("../intermediarios/usuarios/intermediarioUsuarioVerificarLogin");
+const intermediarioUsuarioLogarAdministrador = require("../intermediarios/usuarios/intermediarioUsuarioLogarAdministrador");
 
 const intermediarioClienteCadastrar = require("../intermediarios/clientes/intermediarioClienteCadastrar");
 
@@ -16,7 +17,7 @@ const intermediarioBancoCadastrar = require("../intermediarios/bancos/intermedia
 
 const intermediarioNaoPagoCadastrar = require("../intermediarios/naoPago/intermediarioNaoPagoCadastrar");
 
-const intermediarioPagoCadastrar = require("../intermediarios/pago/intermediarioPagoCadastrar")
+const intermediarioPagoCadastrar = require("../intermediarios/pago/intermediarioPagoCadastrar");
 
 const controladorUsuarioCadastrar = require("../controladores/usuarios/controladorUsuarioCadastrar");
 const controladorUsuarioLogin = require("../controladores/usuarios/controladorUsuarioLogin");
@@ -58,6 +59,20 @@ rotas.post(
 rotas.use(intermediarioUsuarioVerificarLogin);
 
 rotas.post(
+    '/naoPago',
+    intermediarioNaoPagoCadastrar(schemaNaoPagoCadastrar),
+    controladorNaoPagoCadastrar
+);
+
+rotas.post(
+    '/pago',
+    intermediarioPagoCadastrar(schemaPagoCadastrar),
+    controladorPagoCadastrar
+);
+
+rotas.use(intermediarioUsuarioLogarAdministrador);
+
+rotas.post(
     '/usuarios',
     intermediarioUsuarioCadastrar(schemaUsuarrioCadastrar),
     controladorUsuarioCadastrar
@@ -87,16 +102,5 @@ rotas.post(
     controladorBancoCadastrar
 );
 
-rotas.post(
-    '/naoPago',
-    intermediarioNaoPagoCadastrar(schemaNaoPagoCadastrar),
-    controladorNaoPagoCadastrar
-);
-
-rotas.post(
-    '/pago',
-    intermediarioPagoCadastrar(schemaPagoCadastrar),
-    controladorPagoCadastrar
-);
 
 module.exports = rotas;
