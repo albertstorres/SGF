@@ -14,7 +14,7 @@ const schemaClienteCadastrar = joi.object({
     }),
     cep: joi.string().min(10).max(10).messages({
         "string.min": "Número mínimo de caracteres não foi obtido",
-        "string.max": "Número máximo de caracteres superado",
+        "string.max": "Número máximo de caracteres superado",                                                                                                                                                                    
     }),
     rua: joi.string().messages({
         "string.base": "O campo rua não deve ser numérico",

@@ -10,6 +10,8 @@ drop table if exists bancos;
 
 drop table if exists naoPago;
 
+drop table if exists cobrar;
+
 create table usuarios (
 	id serial primary key,
   username text not null unique,
@@ -67,4 +69,22 @@ create table pago (
   locacoes_id int not null,
   foreign key (bancos_id) references bancos (id),
   foreign key (locacoes_id) references locacoes (id)
+);
+
+create table cobrar (
+	id serial primary key,
+  locacoes_id int not null,
+  feiras_id int not null,
+  usuarios_id int not null,
+  bancos_id int not null,
+  situacao_id int not null;
+  data timestamptz default now(),
+  status text not null;
+  foreign key (locacoes_id) references locacoes (id),
+  foreign key (feiras_id) references feiras (id),
+  foreign key (usuarios_id) references usuarios (id),
+  foreign key (bancos_id) references bancos (id),
+  foreign key (pago_id) references pago (id),
+  foreign key (naopago_id) references naopago (id),
+  
 );

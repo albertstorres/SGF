@@ -12,6 +12,7 @@ const intermediarioClienteCadastrar = require("../intermediarios/clientes/interm
 const intermediarioFeiraCadastrar = require("../intermediarios/feiras/intermediarioFeiraCadastrar");
 
 const intermediarioLocacaoCadastrar = require("../intermediarios/locacoes/intermediarioLocacaoCadastrar");
+const intermediarioLocacaoCobrar = require("../intermediarios/locacoes/intermediarioLocacaoCobrar");
 
 const intermediarioBancoCadastrar = require("../intermediarios/bancos/intermediarioBancoCadastrar");
 
@@ -27,6 +28,8 @@ const controladorFeiraCadastrar = require("../controladores/feiras/controladorFe
 const controladorClienteCadastrar = require("../controladores/clientes/controladorClienteCadastrar");
 
 const controladorLocacaoCadastrar = require("../controladores/locacoes/controladorLocacaoCadastrar");
+const controladorLocacaoCobrar = require("../controladores/locacoes/controladorLocacaoCobrar");
+const controladorLocacaoSituacao = require("../controladores/locacoes/controladorLocacaoSituacao");
 
 const controladorBancoCadastrar = require("../controladores/bancos/controladorBancoCadastrar");
 
@@ -42,6 +45,7 @@ const schemaFeiraCadastrar = require("../validacoes/feiras/schemaFeiraCadastrar"
 const schemaClienteCadastrar = require("../validacoes/clientes/schemaClienteCadastrar");
 
 const schemaLocacaoCadastrar = require("../validacoes/locacoes/schemaLocacaoCadastrar");
+const schemaLocacaoCobrar = require("../validacoes/locacoes/schemaLocacaoCobrar");
 
 const schemaBancoCadastrar = require("../validacoes/bancos/schemaBancoCadastrar");
 
@@ -59,6 +63,12 @@ rotas.post(
 rotas.use(intermediarioUsuarioVerificarLogin);
 
 rotas.post(
+    '/cobrar',
+    intermediarioLocacaoCobrar(schemaLocacaoCobrar),
+    controladorLocacaoCobrar
+);
+
+rotas.post(
     '/naoPago',
     intermediarioNaoPagoCadastrar(schemaNaoPagoCadastrar),
     controladorNaoPagoCadastrar
@@ -68,6 +78,11 @@ rotas.post(
     '/pago',
     intermediarioPagoCadastrar(schemaPagoCadastrar),
     controladorPagoCadastrar
+);
+
+rotas.post(
+    '/situacao',
+    controladorLocacaoSituacao
 );
 
 rotas.use(intermediarioUsuarioLogarAdministrador);
