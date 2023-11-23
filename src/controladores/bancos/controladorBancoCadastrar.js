@@ -31,6 +31,8 @@ const controladorBancoCadastrar = async (req, res) => {
         if (!bancoCadastrado) {
             return res.status(500).json({ mensagem: "O banco não foi cadastrado" });
         }
+
+        return res.status(201).json({ mensagem: "Banco cadastrado com sucesso." });
     } catch (error) {
         return res.status(500).json(error.message);
     }
