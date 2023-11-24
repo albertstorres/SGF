@@ -1,13 +1,18 @@
 const knex = require("../../conexoes/conexao");
 const criarSituacao = require("../../funcoes/locacao/criarSituacao");
-const criarCobrar = require("../../funcoes/locacao/criarCobrar");
+const criarCobranca = require("../../funcoes/locacao/criarCobranca");
 let pagamentosJaEfetuados = [];
 let inadimplenciasDoEvento = [];
 let pago_id;
 const naopago_id = null;
+let situacao_id;
 
 const controladorPagoCadastrar = async (req, res) => {
     const { bancos_id, locacoes_id } = req.body;
+    const { id } = req.usuario;
+    const status = 'PAGO';
+
+    const usuarios_id = id;
 
     try {
         const bancoEncontrado = await knex("bancos").where("id", bancos_id).first();
@@ -15,6 +20,8 @@ const controladorPagoCadastrar = async (req, res) => {
         if (!bancoEncontrado) {
             return res.status(404).json({ mensagem: "O banco não está cadastrado" });
         }
+
+        const { feiras_id } = bancoEncontrado;
 
         const locacaoEncontrada = await knex("locacoes").where("id", locacoes_id).first();
 
@@ -51,14 +58,20 @@ const controladorPagoCadastrar = async (req, res) => {
             return res.status(500).json({ mensagem: "Pagamento não registrado" });
         }
 
-        console.log(pagamentoCadastrado);
-
         pago_id = pagamentoCadastrado[0].id;
 
         const cadastrarSituacao = await criarSituacao(bancos_id, pago_id, naopago_id);
 
         if (!cadastrarSituacao) {
             return res.status(500).json({ mensagem: "Situação não cadastrada." });
+        }
+
+        situacao_id = cadastrarSituacao[0].id;
+
+        const cadastrarCobranca = await criarCobranca(locacoes_id, feiras_id, usuarios_id, bancos_id, situacao_id, status);
+
+        if (!cadastrarCobranca) {
+            return res.status(500).json({ mensagem: "Cobrança não cadastrada." });
         }
 
         return res.status(201).json({ mensagem: "Pagamento cadastrado com sucesso" });
