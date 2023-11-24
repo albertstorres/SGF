@@ -1,9 +1,11 @@
 const knex = require("../../conexoes/conexao");
 
-const criarSituacao = async (pago, naopago) => {
+const criarSituacao = async (bancos_id, pago_id, naopago_id) => {
+
     const situacao = await knex("situacao").insert({
-        pago,
-        naopago
+        bancos_id,
+        pago_id,
+        naopago_id
     });
     return situacao;
 }

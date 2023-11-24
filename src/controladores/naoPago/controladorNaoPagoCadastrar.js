@@ -1,4 +1,10 @@
 const knex = require("../../conexoes/conexao");
+const criarSituacao = require("../../funcoes/locacao/criarSituacao");
+const criaCobrar = require("../../funcoes/locacao/criarCobrar");
+let pagamentosJaEfetuados = [];
+let inadimplenciasDoEvento = [];
+let naopago_id;
+const pago_id = null;
 
 const controladorNaoPagoCadastrar = async (req, res) => {
     const { bancos_id, locacoes_id, foto } = req.body;
@@ -16,33 +22,42 @@ const controladorNaoPagoCadastrar = async (req, res) => {
             return res.status(404).json({ mensagem: "Locação não cadastrada" })
         }
 
+        inadimplenciasDoEvento = await knex("naopago").where("locacoes_id", locacoes_id);
 
-        const inadimplenciaEncontrada = await knex("naopago").where("locacoes_id", locacoes_id).first();
+        const inadimplenciaEncontrada = inadimplenciasDoEvento.some((inadimplencia) => {
+            return inadimplencia.bancos_id === bancos_id;
+        });
 
         if (inadimplenciaEncontrada) {
-            const bancoEncontrado = await knex("naopago").where("bancos_id", bancos_id).first();
-            if (bancoEncontrado) {
-                return res.status(404).json({ mensagem: "Inadimplência já cadastrada." });
-            }
+            return res.status(404).json({ mensagem: "Inadimpência já cadastrada." });
         }
 
-        const pagamentoEncontrado = await knex("pago").where("locacoes_id", locacoes_id).first();
+        pagamentosJaEfetuados = await knex("pago").where("locacoes_id", locacoes_id);
+
+        const pagamentoEncontrado = pagamentosJaEfetuados.some((pagamento) => {
+            return pagamento.bancos_id === bancos_id;
+        });
 
         if (pagamentoEncontrado) {
-            const bancoEncontrado = await knex("pago").where("bancos_id", bancos_id).first();
-            if (bancoEncontrado) {
-                return res.status(404).json({ mensagem: "Pagamento já cadastrado." });
-            }
+            return res.status(404).json({ mensagem: "Já foi cadastrado um pagamento." });
         }
 
-        const naoPagoCCadastrado = await knex("naopago").insert({
+        const inadimplenciaCadastrada = await knex("naopago").insert({
             bancos_id,
             locacoes_id,
             foto
-        });
+        }).returning("id");
 
-        if (!naoPagoCCadastrado) {
+        if (!inadimplenciaCadastrada) {
             return res.status(500).json({ mensagem: "Inadimplência não cadastrada" });
+        }
+
+        naopago_id = inadimplenciaCadastrada[0].id;
+
+        const cadastrarSituacao = await criarSituacao(bancos_id, pago_id, naopago_id);
+
+        if (!cadastrarSituacao) {
+            return res.status(500).json({ mensagem: "Situção não cadastrada." });
         }
 
         return res.status(201).json({ mensagem: "Inadimplência cadastrada com sucesso" });
