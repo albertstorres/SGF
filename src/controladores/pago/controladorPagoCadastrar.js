@@ -1,6 +1,6 @@
 const knex = require("../../conexoes/conexao");
-const criarSituacao = require("../../funcoes/locacao/criarSituacao");
-const criarCobranca = require("../../funcoes/locacao/criarCobranca");
+const criarSituacao = require("../../funcoes/locacao/locacao/criarSituacao");
+const criarCobranca = require("../../funcoes/locacao/locacao/criarCobranca");
 let pagamentosJaEfetuados = [];
 let inadimplenciasDoEvento = [];
 let pago_id;

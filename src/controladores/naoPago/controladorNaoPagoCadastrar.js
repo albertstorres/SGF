@@ -1,15 +1,21 @@
 const knex = require("../../conexoes/conexao");
-const criarSituacao = require("../../funcoes/locacao/criarSituacao");
-const criaCobrar = require("../../funcoes/locacao/criarCobranca");
-const criarCobranca = require("../../funcoes/locacao/criarCobranca");
+
+const criarSituacao = require("../../funcoes/locacao/locacao/criarSituacao");
+const criarCobranca = require("../../funcoes/locacao/locacao/criarCobranca");
+const uploadArquivo = require("../../arquivos/upload/storage");
+
 let pagamentosJaEfetuados = [];
 let inadimplenciasDoEvento = [];
 let naopago_id;
 const pago_id = null;
 let situacao_id;
+let arquivo;
+
+
 
 const controladorNaoPagoCadastrar = async (req, res) => {
-    const { bancos_id, locacoes_id, foto } = req.body;
+    const { bancos_id, locacoes_id, } = req.body;
+    const { file } = req;
     const { id } = req.usuario;
     const status = 'NÃO PAGO';
 
@@ -50,10 +56,23 @@ const controladorNaoPagoCadastrar = async (req, res) => {
             return res.status(404).json({ mensagem: "Já foi cadastrado um pagamento." });
         }
 
+        if (!file) {
+            return res.status(404).json({ mensagem: "Arquivo de foto é obrigatório." });
+        }
+
+        else if (file) {
+            arquivo = await uploadArquivo(file.originalname, file.buffer, file.mimetype);
+        }
+
+
+        if (!arquivo) {
+            return res.status(500).json("Erro interno do servidor. Upload arquivo.");
+        }
+
         const inadimplenciaCadastrada = await knex("naopago").insert({
             bancos_id,
             locacoes_id,
-            foto
+            foto: arquivo.url
         }).returning("id");
 
         if (!inadimplenciaCadastrada) {
@@ -81,6 +100,7 @@ const controladorNaoPagoCadastrar = async (req, res) => {
         return res.status(500).json(error.message);
     }
 }
+
 
 
 module.exports = controladorNaoPagoCadastrar;

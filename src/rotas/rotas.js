@@ -1,4 +1,6 @@
 const express = require("express");
+const multer = require("../arquivos/multer");
+
 
 const rotas = express();
 
@@ -60,6 +62,7 @@ rotas.use(intermediarioUsuarioVerificarLogin);
 
 rotas.post(
     '/naoPago',
+    multer.single("file"),
     intermediarioNaoPagoCadastrar(schemaNaoPagoCadastrar),
     controladorNaoPagoCadastrar
 );
