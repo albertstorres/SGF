@@ -14,6 +14,7 @@ const intermediarioClienteCadastrar = require("../intermediarios/clientes/interm
 const intermediarioFeiraCadastrar = require("../intermediarios/feiras/intermediarioFeiraCadastrar");
 
 const intermediarioLocacaoCadastrar = require("../intermediarios/locacoes/intermediarioLocacaoCadastrar");
+const intermediarioLocacaoRelatorio = require("../intermediarios/locacoes/intermediarioLocacaoRelatorio");
 
 const intermediarioBancoCadastrar = require("../intermediarios/bancos/intermediarioBancoCadastrar");
 
@@ -29,6 +30,7 @@ const controladorFeiraCadastrar = require("../controladores/feiras/controladorFe
 const controladorClienteCadastrar = require("../controladores/clientes/controladorClienteCadastrar");
 
 const controladorLocacaoCadastrar = require("../controladores/locacoes/controladorLocacaoCadastrar");
+const controladorLocacaoRelatorio = require("../controladores/locacoes/controladorLocacaoRelatorio");
 
 const controladorBancoCadastrar = require("../controladores/bancos/controladorBancoCadastrar");
 
@@ -43,7 +45,8 @@ const schemaFeiraCadastrar = require("../validacoes/feiras/schemaFeiraCadastrar"
 
 const schemaClienteCadastrar = require("../validacoes/clientes/schemaClienteCadastrar");
 
-const schemaLocacaoCadastrar = require("../validacoes/locacoes/schemaLocacaoCadastrar")
+const schemaLocacaoCadastrar = require("../validacoes/locacoes/schemaLocacaoCadastrar");
+const schemaLocacaoRelatorio = require("../validacoes/locacoes/schemaLocacaoRelatorio");
 
 const schemaBancoCadastrar = require("../validacoes/bancos/schemaBancoCadastrar");
 
@@ -105,5 +108,9 @@ rotas.post(
     controladorBancoCadastrar
 );
 
+rotas.get('/relatorio',
+    intermediarioLocacaoRelatorio(schemaLocacaoRelatorio),
+    controladorLocacaoRelatorio
+);
 
 module.exports = rotas;

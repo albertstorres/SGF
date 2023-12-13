@@ -39,7 +39,7 @@ const controladorNaoPagoCadastrar = async (req, res) => {
         inadimplenciasDoEvento = await knex("naopago").where("locacoes_id", locacoes_id);
 
         const inadimplenciaEncontrada = inadimplenciasDoEvento.some((inadimplencia) => {
-            return inadimplencia.bancos_id === bancos_id;
+            return inadimplencia.bancos_id == bancos_id;
         });
 
         if (inadimplenciaEncontrada) {
@@ -49,7 +49,7 @@ const controladorNaoPagoCadastrar = async (req, res) => {
         pagamentosJaEfetuados = await knex("pago").where("locacoes_id", locacoes_id);
 
         const pagamentoEncontrado = pagamentosJaEfetuados.some((pagamento) => {
-            return pagamento.bancos_id === bancos_id;
+            return pagamento.bancos_id == bancos_id;
         });
 
         if (pagamentoEncontrado) {
