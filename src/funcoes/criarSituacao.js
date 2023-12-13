@@ -1,4 +1,4 @@
-const knex = require("../../../conexoes/conexao");
+const knex = require("../conexoes/conexao");
 
 const criarSituacao = async (bancos_id, pago_id, naopago_id) => {
 

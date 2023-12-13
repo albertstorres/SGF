@@ -1,7 +1,7 @@
 const knex = require("../../conexoes/conexao");
 
-const criarSituacao = require("../../funcoes/locacao/locacao/criarSituacao");
-const criarCobranca = require("../../funcoes/locacao/locacao/criarCobranca");
+const criarSituacao = require("../../funcoes/criarSituacao");
+const criarCobranca = require("../../funcoes/criarCobranca");
 const uploadArquivo = require("../../arquivos/upload/storage");
 
 let pagamentosJaEfetuados = [];
