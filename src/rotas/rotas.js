@@ -22,6 +22,8 @@ const intermediarioNaoPagoCadastrar = require("../intermediarios/naoPago/interme
 
 const intermediarioPagoCadastrar = require("../intermediarios/pago/intermediarioPagoCadastrar");
 
+const intermediarioBuscarNaoPagantesIntervaloDatas = require("../intermediarios/buscas/naoPagantes/intermediarioBuscarNaoPagantesIntervaloDatas");
+
 const controladorUsuarioCadastrar = require("../controladores/usuarios/controladorUsuarioCadastrar");
 const controladorUsuarioLogin = require("../controladores/usuarios/controladorUsuarioLogin");
 
@@ -38,6 +40,8 @@ const controladorNaoPagoCadastrar = require("../controladores/naoPago/controlado
 
 const controladorPagoCadastrar = require("../controladores/pago/controladorPagoCadastrar");
 
+const controladorBuscarNaoPagantesIntervaloDatas = require("../controladores/buscas/naoPagantes/controladorBuscarNaoPagantesIntervaloDatas");
+
 const schemaUsuarrioCadastrar = require("../validacoes/usuarios/schemaUsuarioCadastrar");
 const schemaUsuarioLogin = require("../validacoes/usuarios/schemaUsuarioLogin");
 
@@ -53,6 +57,8 @@ const schemaBancoCadastrar = require("../validacoes/bancos/schemaBancoCadastrar"
 const schemaNaoPagoCadastrar = require("../validacoes/naoPago/schemaNaoPagoCadastrar");
 
 const schemaPagoCadastrar = require("../validacoes/pago/schemaPagoCadastrar");
+
+const schemaBuscaNaoPagantesIntervaloDatas = require("../validacoes/buscas/naoPagantes/schemaBuscaNaoPagantesIntervaloDatas");
 
 
 rotas.post(
@@ -108,9 +114,16 @@ rotas.post(
     controladorBancoCadastrar
 );
 
-rotas.get('/relatorio',
+rotas.get(
+    '/relatorio',
     intermediarioLocacaoRelatorio(schemaLocacaoRelatorio),
     controladorLocacaoRelatorio
+);
+
+rotas.get(
+    '/naoPagantes',
+    intermediarioBuscarNaoPagantesIntervaloDatas(schemaBuscaNaoPagantesIntervaloDatas),
+    controladorBuscarNaoPagantesIntervaloDatas
 );
 
 module.exports = rotas;
