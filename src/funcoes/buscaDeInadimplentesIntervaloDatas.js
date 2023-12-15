@@ -1,5 +1,4 @@
 const contadorDeFaltasNoArrayDeBancosID = require("./contadorDeFaltasNoArrayDeBancosID");
-const knex = require("../conexoes/conexao");
 
 const buscaDeInadimpletesIntervaloDatas = (naoPagantes, diaInicio, mesInicio, anoInicio, diaFinal, mesFinal, anoFinal) => {
 
@@ -27,8 +26,6 @@ const buscaDeInadimpletesIntervaloDatas = (naoPagantes, diaInicio, mesInicio, an
     }
 
     const faltososComQuantidadesDeFaltasNoPeriodo = contadorDeFaltasNoArrayDeBancosID(idDosFaltosos);
-
-    
 
     return {
         inadimplentesNoIntervalo,
