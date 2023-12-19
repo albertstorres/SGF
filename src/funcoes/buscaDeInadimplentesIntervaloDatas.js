@@ -14,7 +14,6 @@ const buscaDeInadimpletesIntervaloDatas = (naoPagantes, diaInicio, mesInicio, an
     dataFinal.setMonth(mesFinal - 1);
     dataFinal.setDate(diaFinal);
 
-
     const inadimplentesNoIntervalo = naoPagantes.filter((cobranca) => {
         if (cobranca.data >= dataInicial && cobranca.data <= dataFinal) {
             return cobranca;
@@ -31,6 +30,7 @@ const buscaDeInadimpletesIntervaloDatas = (naoPagantes, diaInicio, mesInicio, an
         inadimplentesNoIntervalo,
         faltososComQuantidadesDeFaltasNoPeriodo
     };
+
 }
 
 module.exports = buscaDeInadimpletesIntervaloDatas;

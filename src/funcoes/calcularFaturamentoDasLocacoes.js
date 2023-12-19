@@ -1,4 +1,5 @@
 const calcularFaturamentoDasLocacoes = (feiraEncontradaNome, totalDePagantes) => {
+
     let faturamento;
 
     if (feiraEncontradaNome === "Gravatá" || feiraEncontradaNome === "Rio Doce" || feiraEncontradaNome === "Tabajara") {

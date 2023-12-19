@@ -9,6 +9,7 @@ const criarSituacao = async (bancos_id, pago_id, naopago_id) => {
     }).returning("id");
 
     return situacao;
+
 }
 
 

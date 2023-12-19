@@ -11,6 +11,7 @@ const criarCobranca = async (locacoes_id, feiras_id, usuarios_id, bancos_id, sit
     });
 
     return cobranca;
+
 }
 
 

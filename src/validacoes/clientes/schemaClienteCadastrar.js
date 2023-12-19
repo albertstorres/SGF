@@ -14,7 +14,7 @@ const schemaClienteCadastrar = joi.object({
     }),
     cep: joi.string().min(10).max(10).messages({
         "string.min": "Número mínimo de caracteres não foi obtido",
-        "string.max": "Número máximo de caracteres superado",                                                                                                                                                                    
+        "string.max": "Número máximo de caracteres superado",
     }),
     rua: joi.string().messages({
         "string.base": "O campo rua não deve ser numérico",
@@ -22,7 +22,9 @@ const schemaClienteCadastrar = joi.object({
     bairro: joi.string().messages({
         "string.base": "O campo bairro não deve ser numérico",
     }),
-    numero: joi.string(),
+    numero: joi.string().messages({
+        "string.base": "O campo número deve ser string."
+    }),
 
     cidade: joi.string().messages({
         "string.base": "O campo cidade não deve ser numérico",
@@ -31,9 +33,8 @@ const schemaClienteCadastrar = joi.object({
         "string.min": "O campo estado deve ter dois caracteres",
         "string.max": "O campo estado deve ter dois caracteres",
     }),
-    feiras_id: joi.number().required().messages({
-        "any.required": "O campo feiras_id é obrigatório",
-        "number.base": "O campo feiras_id deve ser numérico",
+    feiras_id: joi.number().messages({
+        "number.base": "O campo feiras_id deve ser numérico"
     })
 });
 

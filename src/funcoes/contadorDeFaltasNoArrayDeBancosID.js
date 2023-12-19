@@ -1,4 +1,5 @@
 const contadorDeFaltasNoArrayDeBancosID = (array) => {
+
     const contador = Object.create(null);
 
     for (const elemento of array) {
@@ -9,6 +10,7 @@ const contadorDeFaltasNoArrayDeBancosID = (array) => {
         Banco_ID: Number(valor),
         Faltas: contador
     }));
+
 }
 
 
