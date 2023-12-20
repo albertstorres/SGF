@@ -50,8 +50,7 @@ create table bancos (
 	id serial primary key,
   nome text not null unique,
   feiras_id int not null,
-  clientes_id int not null,
-  locacoes_id int 
+  clientes_id int not null, 
 );
 
 create table naopago (
@@ -59,7 +58,6 @@ create table naopago (
   data timestamptz default now(),
   foto text not null,
   bancos_id int not null,
-  locacoes_id int not null,
   foreign key (bancos_id) references bancos (id),
   foreign key (locacoes_id) references locacoes (id)
 );
@@ -94,8 +92,10 @@ create table situacao (
   bancos_id int not null,
   pago_id int,
   naopago_id int,
+  feiras_id int,
   foreign key (pago_id) references pago (id),
   foreign key (naopago_id) references naopago (id),
-  foreign key (bancos_id) references bancos (id)
+  foreign key (bancos_id) references bancos (id),
+  foreign key (feiras) references feiras (id)
 );
 

@@ -81,7 +81,7 @@ const controladorNaoPagoCadastrar = async (req, res) => {
 
         naopago_id = inadimplenciaCadastrada[0].id;
 
-        const cadastrarSituacao = await criarSituacao(bancos_id, pago_id, naopago_id);
+        const cadastrarSituacao = await criarSituacao(bancos_id, pago_id, naopago_id, feiras_id);
 
         if (!cadastrarSituacao) {
             return res.status(500).json({ mensagem: "Situção não cadastrada." });
