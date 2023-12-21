@@ -22,6 +22,7 @@ const controladorBuscarNaoPagantesIntervaloDatas = async (req, res) => {
         );
 
         return res.status(200).json(naoPagantesNoIntervalo);
+        
     } catch (error) {
         return res.status(500).json(error.message);
     }

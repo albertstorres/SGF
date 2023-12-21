@@ -1,7 +1,6 @@
 const express = require("express");
 const multer = require("../arquivos/multer");
 
-
 const rotas = express();
 
 const intermediarioUsuarioCadastrar = require("../intermediarios/usuarios/intermediarioUsuarioCadastrar");
@@ -28,6 +27,7 @@ const intermediarioBancoBuscaGeral = require("../intermediarios/bancos/buscas/in
 const intermediarioNaoPagoCadastrar = require("../intermediarios/naoPago/intermediarioNaoPagoCadastrar");
 
 const intermediarioPagoCadastrar = require("../intermediarios/pago/intermediarioPagoCadastrar");
+const intermediarioPagoDeletar = require("../intermediarios/pago/intermediarioPagoDeletar");
 
 const intermediarioBuscarNaoPagantesIntervaloDatas = require("../intermediarios/naoPago/buscas/intermediarioBuscarNaoPagantesIntervaloDatas");
 
@@ -53,6 +53,7 @@ const controladorBancoBuscaGeral = require("../controladores/bancos/buscas/const
 const controladorNaoPagoCadastrar = require("../controladores/naoPago/controladorNaoPagoCadastrar");
 
 const controladorPagoCadastrar = require("../controladores/pago/controladorPagoCadastrar");
+const controladorPagoDeletar = require("../controladores/pago/controladorPagoDeletar");
 
 const controladorBuscarNaoPagantesIntervaloDatas = require("../controladores/naoPago/buscas/controladorBuscarNaoPagantesIntervaloDatas");
 
@@ -78,6 +79,7 @@ const schemaBancoBuscaGeral = require("../validacoes/bancos/buscas/schemaBancoBu
 const schemaNaoPagoCadastrar = require("../validacoes/naoPago/schemaNaoPagoCadastrar");
 
 const schemaPagoCadastrar = require("../validacoes/pago/schemaPagoCadastrar");
+const schemaPagoDeletar = require("../validacoes/pago/schemaPagoDeletar");
 
 const schemaBuscaNaoPagantesIntervaloDatas = require("../validacoes/naoPago/buscas/schemaBuscaNaoPagantesIntervaloDatas");
 
@@ -188,6 +190,12 @@ rotas.delete(
     '/feiras',
     intermediarioFeiraDeletar(schemaFeiraDeletar),
     controladorFeiraDeletar
+);
+
+rotas.delete(
+    '/pago',
+    intermediarioPagoDeletar(schemaPagoDeletar),
+    controladorPagoDeletar
 );
 
 module.exports = rotas;

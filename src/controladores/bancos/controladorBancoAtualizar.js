@@ -15,7 +15,7 @@ const controladorBancoAtualizar = async (req, res) => {
         }
 
         const bancoAtualizado = await knex("bancos").where("id", id).update({
-            clientes_id
+            clientes_id,
         });
         if (!bancoAtualizado) {
             return res.status(500).json({ mensagem: "O banco não pode ser atualizado." });

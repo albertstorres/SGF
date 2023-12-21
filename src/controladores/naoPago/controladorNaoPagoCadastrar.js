@@ -72,7 +72,8 @@ const controladorNaoPagoCadastrar = async (req, res) => {
         const inadimplenciaCadastrada = await knex("naopago").insert({
             bancos_id,
             locacoes_id,
-            foto: arquivo.url
+            foto: arquivo.url,
+            feiras_id
         }).returning("id");
 
         if (!inadimplenciaCadastrada) {

@@ -28,7 +28,14 @@ const relatorioBancosCobrados = async (locacoes_id, feiras_id, feiraEncontradaNo
 
     const faturamentoDaFeira = calcularFaturamentoDasLocacoes(feiraEncontradaNome, totalDePagantes);
 
-    return { bancosMontadosNaFeira, porcentagemDeInadimplentes, faturamentoDaFeira, feiraEncontradaNome };
+    return {
+        bancosMontadosNaFeira,
+        feira: feiraEncontradaNome,
+        totalDeBancosRecebidos: totalDePagantes,
+        totalDeBancosNaoRecebidos: totalDeInadimplentes,
+        porcentagemDeInadimplentes: `${porcentagemDeInadimplentes} %`,
+        faturamento: faturamentoDaFeira,
+    };
 
 }
 

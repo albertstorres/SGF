@@ -51,7 +51,8 @@ const controladorPagoCadastrar = async (req, res) => {
 
         const pagamentoCadastrado = await knex("pago").insert({
             bancos_id,
-            locacoes_id
+            locacoes_id,
+            feiras_id
         }).returning("id");
 
         if (!pagamentoCadastrado) {

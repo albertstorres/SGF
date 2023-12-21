@@ -15,10 +15,11 @@ const buscaDeInadimpletesIntervaloDatas = (naoPagantes, diaInicio, mesInicio, an
     dataFinal.setDate(diaFinal);
 
     const inadimplentesNoIntervalo = naoPagantes.filter((cobranca) => {
-        if (cobranca.data >= dataInicial && cobranca.data <= dataFinal) {
+        if (cobranca.data.getTime() >= dataInicial.getTime() && cobranca.data.getTime() <= dataFinal.getTime()) {
             return cobranca;
         }
     });
+
 
     for (var i = 0; i < inadimplentesNoIntervalo.length; i++) {
         idDosFaltosos[i] = inadimplentesNoIntervalo[i].bancos_id;

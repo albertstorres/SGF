@@ -1,4 +1,5 @@
 const knex = require("../../../conexoes/conexao");
+const calcularFaturamentoDaslocacoes = require("../../../funcoes/calcularFaturamentoDasLocacoes");
 
 const controladorFeiraBuscaGeral = async (req, res) => {
     const { feiras_id, feiras_nome } = req.body;
@@ -19,11 +20,14 @@ const controladorFeiraBuscaGeral = async (req, res) => {
 
         const porcentagemDeInadimplencia = `${(totalDeInadimplencias.length / totalDeCobranca.length) * 100} %`;
 
+        const totalFaturado = calcularFaturamentoDaslocacoes(feiraEncontrada.nome, totalDePagamentos.length);
+
         const resultado = {
             feira: feiraEncontrada.nome,
             totalDeCobranca: totalDeCobranca.length,
             porcentagemDePagamento,
-            porcentagemDeInadimplencia
+            porcentagemDeInadimplencia,
+            totalFaturado
         };
 
         return res.status(200).json(resultado);
