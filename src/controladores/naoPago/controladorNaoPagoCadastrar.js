@@ -2,7 +2,7 @@ const knex = require("../../conexoes/conexao");
 
 const criarSituacao = require("../../funcoes/criarSituacao");
 const criarCobranca = require("../../funcoes/criarCobranca");
-const uploadArquivo = require("../../arquivos/upload/storage");
+const { uploadArquivo } = require("../../arquivos/upload/storage");
 
 let pagamentosJaEfetuados = [];
 let inadimplenciasDoEvento = [];
@@ -34,6 +34,10 @@ const controladorNaoPagoCadastrar = async (req, res) => {
 
         if (!locacaoEncontrada) {
             return res.status(404).json({ mensagem: "Locação não cadastrada" })
+        }
+
+        if (locacaoEncontrada.situacao === false) {
+            return res.status(404).json({ mensagem: "Locação finalizada." });
         }
 
         inadimplenciasDoEvento = await knex("naopago").where("locacoes_id", locacoes_id);

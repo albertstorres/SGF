@@ -29,6 +29,10 @@ const controladorPagoCadastrar = async (req, res) => {
             return res.status(404).json({ mensagem: "Locação não cadastrada" });
         }
 
+        if (locacaoEncontrada.situacao === false) {
+            return res.status(404).json({ mensagem: "Locação finalizada." });
+        }
+
         pagamentosJaEfetuados = await knex("pago").where("locacoes_id", locacoes_id);
 
         const pagamentoEncontrado = pagamentosJaEfetuados.some((pagamento) => {

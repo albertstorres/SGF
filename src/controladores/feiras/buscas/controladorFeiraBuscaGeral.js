@@ -25,6 +25,8 @@ const controladorFeiraBuscaGeral = async (req, res) => {
         const resultado = {
             feira: feiraEncontrada.nome,
             totalDeCobranca: totalDeCobranca.length,
+            totalDePagamentos: totalDePagamentos.length,
+            totalDeInadimplencias: totalDeInadimplencias.length,
             porcentagemDePagamento,
             porcentagemDeInadimplencia,
             totalFaturado

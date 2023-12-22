@@ -1,5 +1,5 @@
 const intermediarioNaoPagoCadastrar = (joiSchema) => async (req, res, next) => {
-    const { bancos_id, locacoes_id, foto } = req.body;
+    const { bancos_id, locacoes_id } = req.body;
 
     try {
         await joiSchema.validateAsync({

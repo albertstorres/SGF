@@ -1,4 +1,4 @@
-const intermediarioPagoDeletar = (joiSchema) => async (req, res, next) => {
+const intermediarioNaoPagoDeletar = (joiSchema) => async (req, res, next) => {
     const { bancos_id, feiras_id, locacoes_id } = req.body;
 
     try {
@@ -11,9 +11,9 @@ const intermediarioPagoDeletar = (joiSchema) => async (req, res, next) => {
         next();
 
     } catch (error) {
-        return res.status(401).json(error.message);
+        return res.status(404).json(error.message);
     }
 }
 
 
-module.exports = intermediarioPagoDeletar;
+module.exports = intermediarioNaoPagoDeletar;

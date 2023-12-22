@@ -6,7 +6,7 @@ const relatorioBancosCobrados = async (locacoes_id, feiras_id, feiraEncontradaNo
     let bancosPagos = [];
     let bancosNaoPagos = [];
 
-    bancosMontadosNaFeira = await knex("cobrar").where("feiras_id", feiras_id).where("locacoes_id", locacoes_id);
+    bancosMontadosNaFeira = await knex("cobrar").where("feiras_id", feiras_id).where("locacoes_id", locacoes_id).orderBy("bancos_id");
 
     bancosPagos = bancosMontadosNaFeira.filter((pago) => {
         return pago.status === 'PAGO';

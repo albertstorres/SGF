@@ -18,6 +18,8 @@ const intermediarioFeiraBuscaGeral = require("../intermediarios/feiras/buscas/in
 
 const intermediarioLocacaoCadastrar = require("../intermediarios/locacoes/intermediarioLocacaoCadastrar");
 const intermediarioLocacaoRelatorio = require("../intermediarios/locacoes/intermediarioLocacaoRelatorio");
+const intermediarioLocacaoFinalizar = require("../intermediarios/locacoes/intermediarioLocacaoFinalizar");
+const intermediarioLocacaoReiniciar = require("../intermediarios/locacoes/intermediarioLocacaoReiniciar");
 
 const intermediarioBancoCadastrar = require("../intermediarios/bancos/intermediarioBancoCadastrar");
 const intermediarioBancoAtualizar = require("../intermediarios/bancos/intermediarioBancoAtualizar");
@@ -25,11 +27,14 @@ const intermediarioBancoDeletar = require("../intermediarios/bancos/intermediari
 const intermediarioBancoBuscaGeral = require("../intermediarios/bancos/buscas/intermediarioBancoBuscaGeral");
 
 const intermediarioNaoPagoCadastrar = require("../intermediarios/naoPago/intermediarioNaoPagoCadastrar");
+const intermediarioNaoPagoDeletar = require("../intermediarios/naoPago/intermediarioNaoPagoDeletar");
 
 const intermediarioPagoCadastrar = require("../intermediarios/pago/intermediarioPagoCadastrar");
 const intermediarioPagoDeletar = require("../intermediarios/pago/intermediarioPagoDeletar");
 
 const intermediarioBuscarNaoPagantesIntervaloDatas = require("../intermediarios/naoPago/buscas/intermediarioBuscarNaoPagantesIntervaloDatas");
+
+
 
 const controladorUsuarioCadastrar = require("../controladores/usuarios/controladorUsuarioCadastrar");
 const controladorUsuarioLogin = require("../controladores/usuarios/controladorUsuarioLogin");
@@ -44,6 +49,8 @@ const controladorClienteDeletar = require("../controladores/clientes/controlador
 
 const controladorLocacaoCadastrar = require("../controladores/locacoes/controladorLocacaoCadastrar");
 const controladorLocacaoRelatorio = require("../controladores/locacoes/controladorLocacaoRelatorio");
+const controladorLocacaoFinalizar = require("../controladores/locacoes/controladorLocacaoFinalizar");
+const controladorLocacaoReiniciar = require("../controladores/locacoes/controladorLocacaoReiniciar");
 
 const controladorBancoCadastrar = require("../controladores/bancos/controladorBancoCadastrar");
 const controladorBancoAtualizar = require("../controladores/bancos/controladorBancoAtualizar");
@@ -51,11 +58,14 @@ const controladorBancoDeletar = require("../controladores/bancos/controladorBanc
 const controladorBancoBuscaGeral = require("../controladores/bancos/buscas/constroladorBancoBuscaGeral");
 
 const controladorNaoPagoCadastrar = require("../controladores/naoPago/controladorNaoPagoCadastrar");
+const controladorNaoPagoDeletar = require("../controladores/naoPago/controladorNaoPagoDeletar");
 
 const controladorPagoCadastrar = require("../controladores/pago/controladorPagoCadastrar");
 const controladorPagoDeletar = require("../controladores/pago/controladorPagoDeletar");
 
 const controladorBuscarNaoPagantesIntervaloDatas = require("../controladores/naoPago/buscas/controladorBuscarNaoPagantesIntervaloDatas");
+
+
 
 const schemaUsuarrioCadastrar = require("../validacoes/usuarios/schemaUsuarioCadastrar");
 const schemaUsuarioLogin = require("../validacoes/usuarios/schemaUsuarioLogin");
@@ -70,6 +80,8 @@ const schemaClienteDeletar = require("../validacoes/clientes/schemaClienteDeleta
 
 const schemaLocacaoCadastrar = require("../validacoes/locacoes/schemaLocacaoCadastrar");
 const schemaLocacaoRelatorio = require("../validacoes/locacoes/schemaLocacaoRelatorio");
+const schemaLocacaoFinalizar = require("../validacoes/locacoes/schemaLocacaoFInalizar");
+const schemaLocacaoReiniciar = require("../validacoes/locacoes/schemaLocacaoReiniciar");
 
 const schemaBancoCadastrar = require("../validacoes/bancos/schemaBancoCadastrar");
 const schemaBancoAtualizar = require("../validacoes/bancos/schemaBancoAtualizar");
@@ -77,6 +89,7 @@ const schemaBancoDeletar = require("../validacoes/bancos/schemaBancoDeletar");
 const schemaBancoBuscaGeral = require("../validacoes/bancos/buscas/schemaBancoBuscaGeral");
 
 const schemaNaoPagoCadastrar = require("../validacoes/naoPago/schemaNaoPagoCadastrar");
+const schemaNaoPagoDeletar = require("../validacoes/naoPago/schemaNaoPagoDeletar");
 
 const schemaPagoCadastrar = require("../validacoes/pago/schemaPagoCadastrar");
 const schemaPagoDeletar = require("../validacoes/pago/schemaPagoDeletar");
@@ -173,6 +186,18 @@ rotas.put(
     controladorBancoAtualizar
 );
 
+rotas.put(
+    '/locacaoFinalizar',
+    intermediarioLocacaoFinalizar(schemaLocacaoFinalizar),
+    controladorLocacaoFinalizar
+);
+
+rotas.put(
+    '/locacaoReiniciar',
+    intermediarioLocacaoReiniciar(schemaLocacaoReiniciar),
+    controladorLocacaoReiniciar
+);
+
 rotas.delete(
     '/clientes',
     intermediarioClienteDeletar(schemaClienteDeletar),
@@ -196,6 +221,12 @@ rotas.delete(
     '/pago',
     intermediarioPagoDeletar(schemaPagoDeletar),
     controladorPagoDeletar
+);
+
+rotas.delete(
+    '/naoPago',
+    intermediarioNaoPagoDeletar(schemaNaoPagoDeletar),
+    controladorNaoPagoDeletar
 );
 
 module.exports = rotas;

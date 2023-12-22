@@ -1,6 +1,6 @@
 const knex = require("../../conexoes/conexao");
 
-const controladorPagoDeletar = async (req, res, next) => {
+const controladorPagoDeletar = async (req, res) => {
     const { bancos_id, feiras_id, locacoes_id } = req.body;
 
     try {
