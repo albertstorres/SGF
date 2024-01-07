@@ -9,7 +9,7 @@ const controladorBuscarNaoPagantesIntervaloDatas = async (req, res) => {
         if (!feiraEncontrada) {
             return res.status(404).json({ mensagem: "Feira não cadastrada." });
         }
-        const naoPagantes = await knex("cobrar").where("feiras_id", feiras_id).where("status", "NÃO PAGO");
+        const naoPagantes = await knex("cobrar").where("feiras_id", feiras_id).where("status", "NÃO PAGO").orderBy("bancos_id");
 
         const naoPagantesNoIntervalo = buscaDeInadimpletesIntervaloDatas(
             naoPagantes,
@@ -22,7 +22,7 @@ const controladorBuscarNaoPagantesIntervaloDatas = async (req, res) => {
         );
 
         return res.status(200).json(naoPagantesNoIntervalo);
-        
+
     } catch (error) {
         return res.status(500).json(error.message);
     }

@@ -25,6 +25,7 @@ const intermediarioBancoCadastrar = require("../intermediarios/bancos/intermedia
 const intermediarioBancoAtualizar = require("../intermediarios/bancos/intermediarioBancoAtualizar");
 const intermediarioBancoDeletar = require("../intermediarios/bancos/intermediarioBancoDeletar");
 const intermediarioBancoBuscaGeral = require("../intermediarios/bancos/buscas/intermediarioBancoBuscaGeral");
+const intermediarioBancoBuscaNaoCobrados = require("../intermediarios/bancos/buscas/intermediarioBancoBuscaNaoCobrados");
 
 const intermediarioNaoPagoCadastrar = require("../intermediarios/naoPago/intermediarioNaoPagoCadastrar");
 const intermediarioNaoPagoDeletar = require("../intermediarios/naoPago/intermediarioNaoPagoDeletar");
@@ -56,6 +57,7 @@ const controladorBancoCadastrar = require("../controladores/bancos/controladorBa
 const controladorBancoAtualizar = require("../controladores/bancos/controladorBancoAtualizar");
 const controladorBancoDeletar = require("../controladores/bancos/controladorBancoDeletar");
 const controladorBancoBuscaGeral = require("../controladores/bancos/buscas/constroladorBancoBuscaGeral");
+const controladorBancosBuscaNaoCobrados = require("../controladores/bancos/buscas/controladorBancoBuscaNaoCobrados");
 
 const controladorNaoPagoCadastrar = require("../controladores/naoPago/controladorNaoPagoCadastrar");
 const controladorNaoPagoDeletar = require("../controladores/naoPago/controladorNaoPagoDeletar");
@@ -87,6 +89,7 @@ const schemaBancoCadastrar = require("../validacoes/bancos/schemaBancoCadastrar"
 const schemaBancoAtualizar = require("../validacoes/bancos/schemaBancoAtualizar");
 const schemaBancoDeletar = require("../validacoes/bancos/schemaBancoDeletar");
 const schemaBancoBuscaGeral = require("../validacoes/bancos/buscas/schemaBancoBuscaGeral");
+const schemaBancoBuscaNaoCobrados = require("../validacoes/bancos/buscas/schemaBancoBuscaNaoCobrados");
 
 const schemaNaoPagoCadastrar = require("../validacoes/naoPago/schemaNaoPagoCadastrar");
 const schemaNaoPagoDeletar = require("../validacoes/naoPago/schemaNaoPagoDeletar");
@@ -116,6 +119,12 @@ rotas.post(
     '/pago',
     intermediarioPagoCadastrar(schemaPagoCadastrar),
     controladorPagoCadastrar
+);
+
+rotas.get(
+    '/bancosBuscaNaoCobrados',
+    intermediarioBancoBuscaNaoCobrados(schemaBancoBuscaNaoCobrados),
+    controladorBancosBuscaNaoCobrados
 );
 
 rotas.use(intermediarioUsuarioLogarAdministrador);
